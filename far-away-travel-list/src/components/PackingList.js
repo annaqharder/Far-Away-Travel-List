@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Item from "./Item";
 
-function PackingList({ items, onDeleteItem, onToggleItem }) {
+function PackingList({ items, setItems, onDeleteItem, onToggleItem }) {
   const [sortBy, setSortBy] = useState("input");
 
   let sortedItems;
@@ -27,6 +27,13 @@ function PackingList({ items, onDeleteItem, onToggleItem }) {
     />
   ));
 
+  function handleClearList() {
+    const confirmed = window.confirm(
+      "Are you sure you want to delete all items?"
+    );
+    if (confirmed) setItems([]);
+  }
+
   return (
     <div className="list">
       <ul>{itemList}</ul>
@@ -36,6 +43,7 @@ function PackingList({ items, onDeleteItem, onToggleItem }) {
           <option value="description">Sort by description</option>
           <option value="packed">Sort by packed status</option>
         </select>
+        <button onClick={handleClearList}>Clear List</button>
       </div>
     </div>
   );
